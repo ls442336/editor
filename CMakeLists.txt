@@ -1,0 +1,24 @@
+# cmake version to be used
+cmake_minimum_required( VERSION 3.0 )
+
+# project name
+project( editor )
+
+# flags
+
+# files
+file(GLOB source
+    "./src/main.cpp",
+    "./src/editor/*.cpp"
+    "./src/glad/glad.c"
+)
+
+# include
+include_directories(includes/editor)
+include_directories(includes/glad)
+include_directories(includes/config)
+find_package(glfw3 REQUIRED)
+
+# target
+add_executable( binary ${source})
+target_link_libraries(binary glfw)
