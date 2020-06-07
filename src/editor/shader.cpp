@@ -1,7 +1,5 @@
 #include "shader.h"
 
-#include <iostream>
-
 void Shader::use()
 {
     glUseProgram(id);
@@ -16,14 +14,14 @@ void Shader::compile(const char *vertexSource, const char* fragmentSource)
     glShaderSource(vertexShader, 1, &vertexSource, NULL);
     glCompileShader(vertexShader);
 
-    checkCompileErrors(vertexShader);
+    checkCompileErrors(vertexShader, "VERTEX");
 
     // Create and compile fragmentShader
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
     glCompileShader(fragmentShader);
 
-    checkCompileErrors(fragmentShader);
+    checkCompileErrors(fragmentShader, "FRAGMENT");
 
     // Create and link shader program
     this->id = glCreateProgram();
@@ -31,7 +29,7 @@ void Shader::compile(const char *vertexSource, const char* fragmentSource)
     glAttachShader(this->id, fragmentShader);
     glLinkProgram(this->id);
 
-    checkCompileErrors(this->id, true);
+    checkCompileErrors(this->id, "PROGRAM");
 
     // Delete vertex and fragment shaders
     glDeleteShader(vertexShader);
@@ -63,12 +61,12 @@ void Shader::setMatrix4f(const char* name, const glm::mat4 &value)
     glUniformMatrix4fv(glGetUniformLocation(this->id, name), 1, false, glm::value_ptr(value));
 }
 
-void Shader::checkCompileErrors(unsigned int id, bool isProgram) 
+void Shader::checkCompileErrors(unsigned int id, std::string type) 
 {
     char infoLog[512];
     int success;
 
-    if(!isProgram) 
+    if(type == "PROGRAM") 
     {
 
         glGetShaderiv(id, GL_COMPILE_STATUS, &success);
@@ -88,7 +86,7 @@ void Shader::checkCompileErrors(unsigned int id, bool isProgram)
         {
             glGetShaderInfoLog(id, 512, NULL, infoLog);
 
-            std::cout << "ERROR: SHADER LINK ERROR:\n" << infoLog << std::endl;
+            std::cout << "ERROR: " << type << " SHADER LINK ERROR:\n" << infoLog << std::endl;
         }
     }
     

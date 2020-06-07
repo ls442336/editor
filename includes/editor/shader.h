@@ -4,6 +4,7 @@
 #include <glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <iostream>
 
 /*
 * Based on: https://github.com/JoeyDeVries/LearnOpenGL/blob/master/src/7.in_practice/3.2d_game/0.full_source/shader.cpp
@@ -22,7 +23,7 @@ public:
     void setVector4f(const char* name, const glm::vec4 &value);
     void setMatrix3f(const char* name, const glm::mat3 &value);
     void setMatrix4f(const char* name, const glm::mat4 &value);
-    void checkCompileErrors(unsigned int id, bool isProgram = false);
+    void checkCompileErrors(unsigned int id, std::string type);
 };
 
 #endif  //!__SHADER__H__

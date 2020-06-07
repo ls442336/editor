@@ -1,12 +1,12 @@
 #include <iostream>
 #include "glad.h"
 #include <GLFW/glfw3.h>
+
 #include <fstream>
 #include <sstream>
 
 #include "config.h"
 #include "editor.h"
-#include "shader.h"
 
 Editor editor;
 
@@ -55,10 +55,10 @@ int main(int argc, char *argv[])
     while(!glfwWindowShouldClose(window))
     {
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT);
 
         editor.run();
-        
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
