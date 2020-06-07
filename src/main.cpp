@@ -1,9 +1,12 @@
 #include <iostream>
 #include "glad.h"
 #include <GLFW/glfw3.h>
+#include <fstream>
+#include <sstream>
 
 #include "config.h"
 #include "editor.h"
+#include "shader.h"
 
 Editor editor;
 

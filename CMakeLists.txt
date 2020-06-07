@@ -13,6 +13,8 @@ file(GLOB source
     "./src/glad/glad.c"
 )
 
+file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 # include
 include_directories(includes/editor)
 include_directories(includes/glad)
