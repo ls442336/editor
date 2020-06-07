@@ -5,6 +5,13 @@
 #include "config.h"
 #include "editor.h"
 
+Editor editor;
+
+void resize(GLFWwindow *window, int width, int height) {
+    glViewport(0, 0, width, height);
+    editor.settings.updateWindowSize(width, height);
+}
+
 int main(int argc, char *argv[])
 {
     glfwInit();
@@ -34,11 +41,19 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    Editor editor(window);
+    // Setup callbacks
+    glfwSetFramebufferSizeCallback(window, resize);
+
+    glViewport(0, 0, config::window::width, config::window::height);
+
+    // Init Editor
     editor.init();
 
     while(!glfwWindowShouldClose(window))
     {
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
         editor.run();
         
         glfwSwapBuffers(window);
