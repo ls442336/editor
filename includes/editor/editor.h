@@ -4,18 +4,15 @@
 #include "glad.h"
 #include <GLFW/glfw3.h>
 
-class Editor {
-private:
-    GLFWwindow* window;
+#include "settings.h"
+
+class Editor
+{
 public:
+    Settings settings;
+
     Editor() {}
 
-    Editor(GLFWwindow *window) :
-        window(window)
-    {
-        
-    }
-    
     void init();
     void run();
 };
