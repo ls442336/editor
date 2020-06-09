@@ -1,8 +1,6 @@
 #include "texture2d.h"
 
 #include "glad.h"
-
-
 #include <iostream>
 
 Texture2D::Texture2D()

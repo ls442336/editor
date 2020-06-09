@@ -74,8 +74,7 @@ void Shader::checkCompileErrors(unsigned int id, std::string type)
         if(!success)
         {
             glGetShaderInfoLog(id, 512, NULL, infoLog);
-
-            std::cout << "ERROR: SHADER COMPILATION ERROR:\n" << infoLog << std::endl;
+            throw std::runtime_error("ERROR: SHADER COMPILATION ERROR:\n" + std::string(infoLog));
         }
 
     } else
@@ -85,8 +84,7 @@ void Shader::checkCompileErrors(unsigned int id, std::string type)
         if(!success)
         {
             glGetShaderInfoLog(id, 512, NULL, infoLog);
-
-            std::cout << "ERROR: " << type << " SHADER LINK ERROR:\n" << infoLog << std::endl;
+            throw std::runtime_error("ERROR: " + type + " SHADER LINK ERROR:\n" + std::string(infoLog));
         }
     }
     
