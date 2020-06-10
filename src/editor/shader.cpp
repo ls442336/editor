@@ -61,7 +61,7 @@ void Shader::setMatrix4f(const char* name, const glm::mat4 &value)
     glUniformMatrix4fv(glGetUniformLocation(this->id, name), 1, false, glm::value_ptr(value));
 }
 
-void Shader::checkCompileErrors(unsigned int id, std::string type) 
+void Shader::checkCompileErrors(unsigned int id, const std::string& type) 
 {
     char infoLog[512];
     int success;
@@ -74,8 +74,7 @@ void Shader::checkCompileErrors(unsigned int id, std::string type)
         if(!success)
         {
             glGetShaderInfoLog(id, 512, NULL, infoLog);
-
-            std::cout << "ERROR: SHADER COMPILATION ERROR:\n" << infoLog << std::endl;
+            throw std::runtime_error("ERROR: SHADER COMPILATION ERROR:\n" + std::string(infoLog));
         }
 
     } else
@@ -85,8 +84,7 @@ void Shader::checkCompileErrors(unsigned int id, std::string type)
         if(!success)
         {
             glGetShaderInfoLog(id, 512, NULL, infoLog);
-
-            std::cout << "ERROR: " << type << " SHADER LINK ERROR:\n" << infoLog << std::endl;
+            throw std::runtime_error("ERROR: " + type + " SHADER LINK ERROR:\n" + std::string(infoLog));
         }
     }
     

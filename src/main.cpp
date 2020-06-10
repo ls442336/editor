@@ -7,6 +7,7 @@
 
 #include "config.h"
 #include "editor.h"
+#include "resourcemanager.h"
 
 Editor editor;
 
