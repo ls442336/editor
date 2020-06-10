@@ -64,3 +64,26 @@ Shader* ResourceManager::loadShader (const std::string& name,
 
     return shaderCreated;
 }
+
+Texture2D* ResourceManager::loadTexture2D(const std::string& name, const std::string& path, int width, int height)
+{
+    unsigned char *data = nullptr;
+
+    try{
+        data = FileUtil::loadImage(path);
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+        return nullptr;
+    }
+
+    std::unique_ptr<Texture2D> texture2d = std::make_unique<Texture2D>();
+    
+    texture2d->create(data, width, height);
+
+    Texture2D* textureCreated = texture2d.get();
+    textures2d.insert(std::make_pair(name, std::move(texture2d)));
+
+    delete data;
+
+    return textureCreated;
+}

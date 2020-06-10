@@ -27,7 +27,7 @@ public:
     Texture2D* getTexture2D(const std::string& name);
 
     Shader* loadShader(const std::string& name, const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
-    Shader* loadTexture2D(const std::string& name, const std::string& path);
+    Texture2D* loadTexture2D(const std::string& name, const std::string& path, int width, int height);
 };
 
 #endif  //!__RESOURCEMANAGER__H__

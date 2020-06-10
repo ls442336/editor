@@ -23,7 +23,7 @@ public:
     void setVector4f(const char* name, const glm::vec4 &value);
     void setMatrix3f(const char* name, const glm::mat3 &value);
     void setMatrix4f(const char* name, const glm::mat4 &value);
-    void checkCompileErrors(unsigned int id, std::string type);
+    void checkCompileErrors(unsigned int id, const std::string& type);
 };
 
 #endif  //!__SHADER__H__
