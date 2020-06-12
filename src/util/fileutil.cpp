@@ -1,6 +1,8 @@
 #include "fileutil.h"
 #include <fstream>
 
+#include "freetype.h"
+
 std::string FileUtil::read(const std::string& path) 
 {
 
@@ -31,4 +33,16 @@ unsigned char* FileUtil::loadImage(const std::string& path)
     }
 
     return data;
+}
+
+FT_Face FileUtil::loadFont(const std::string& path)
+{
+    FT_Face face;
+
+    if (FT_New_Face(FreeType::getInstance().ftLibrary, path.c_str(), 0, &face)) 
+    {
+        throw std::runtime_error("Couldn't load font " + path);
+    }
+
+    return face;
 }
