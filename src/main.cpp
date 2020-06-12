@@ -7,6 +7,8 @@
 
 #include "config.h"
 #include "editor.h"
+
+#include "freetype.h"
 #include "resourcemanager.h"
 
 Editor editor;
@@ -18,6 +20,8 @@ void resize(GLFWwindow *window, int width, int height) {
 
 int main(int argc, char *argv[])
 {
+    FreeType::getInstance().init();
+
     glfwInit();
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -49,6 +53,15 @@ int main(int argc, char *argv[])
     glfwSetFramebufferSizeCallback(window, resize);
 
     glViewport(0, 0, config::window::width, config::window::height);
+    
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    // Teste
+    Font* font = ResourceManager::getInstance().loadFont("fontuda", "/usr/share/fonts/truetype/freefont/FreeMono.ttf", 48);
+
+    if(font) {
+        std::cout << "deu certo chulapinha" << std::endl;
+    }
 
     // Init Editor
     editor.init();
@@ -63,7 +76,7 @@ int main(int argc, char *argv[])
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
-
+    
     glfwTerminate();
     return 0;
 }
