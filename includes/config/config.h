@@ -3,9 +3,9 @@
 
 namespace config {
     namespace window {
-        const char* title = "Editor de texto";
-        const int width = 640;
-        const int height = 480;
+        static const char* title = "Editor de texto";
+        static const int width = 640;
+        static const int height = 480;
     }
 }
 
