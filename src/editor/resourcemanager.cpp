@@ -31,12 +31,23 @@ Texture2D* ResourceManager::getTexture2D(const std::string& name)
     return nullptr;
 }
 
+Font* ResourceManager::getFont(const std::string& name) 
+{
+    if(fonts.find(name) != fonts.end())
+    {
+        return fonts[name].get();
+    }
+    
+    return nullptr;
+}
+
 Shader* ResourceManager::loadShader (const std::string& name,
                     const std::string& vertexShaderPath,
                     const std::string& fragmentShaderPath)
 {
     // Check if resource with this name was allocated
     if(getShader(name) != nullptr) {
+        std::cout << "shader with name " << name << " already exists" << std::endl;
         return nullptr;
     }
 
@@ -67,8 +78,9 @@ Shader* ResourceManager::loadShader (const std::string& name,
     }
 
     Shader *shaderCreated = shader.get();
-    shaders.insert(std::make_pair(name, std::move(shader)));
 
+    shaders.insert(std::make_pair(name, std::move(shader)));
+    
     return shaderCreated;
 }
 
@@ -116,7 +128,7 @@ Font* ResourceManager::loadFont(
 
     FT_Set_Pixel_Sizes(face, 0, size);
 
-    std::unique_ptr<Font> font = std::make_unique<Font>();
+    std::unique_ptr<Font> font = std::make_unique<Font>(size);
     
     for(unsigned char i = 0; i < 128; i++)
     {
@@ -127,6 +139,8 @@ Font* ResourceManager::loadFont(
             // Flags for correct representation of the data buffer
             tex.imageFormat = GL_RED;
             tex.internalFormat = GL_RED;
+            tex.wrapS = GL_CLAMP_TO_EDGE;
+            tex.wrapT = GL_CLAMP_TO_EDGE;
             
             // Create texture
             tex.create(
@@ -142,6 +156,7 @@ Font* ResourceManager::loadFont(
             character->bearing = glm::vec2(
                 face->glyph->bitmap_left,
                 face->glyph->bitmap_top);
+            character->advance = face->glyph->advance.x;
             
             font->characters.push_back(std::move(character));
         } else {

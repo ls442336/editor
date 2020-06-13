@@ -10,6 +10,7 @@
 
 #include "freetype.h"
 #include "resourcemanager.h"
+#include "shader.h"
 
 Editor editor;
 
@@ -53,15 +54,10 @@ int main(int argc, char *argv[])
     glfwSetFramebufferSizeCallback(window, resize);
 
     glViewport(0, 0, config::window::width, config::window::height);
-    
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-    // Teste
-    Font* font = ResourceManager::getInstance().loadFont("fontuda", "/usr/share/fonts/truetype/freefont/FreeMono.ttf", 48);
-
-    if(font) {
-        std::cout << "deu certo chulapinha" << std::endl;
-    }
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     // Init Editor
     editor.init();
