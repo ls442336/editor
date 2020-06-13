@@ -11,10 +11,13 @@
 class Font {
 public:
     Font();
+    Font(float size);
+
+    float size;
     
     std::vector<std::unique_ptr<Character>> characters;
 
-    Character getChar(const char& character);
+    Character* getChar(int character);
 };
 
 #endif  //!__FONT__H__
