@@ -6,10 +6,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 
-/*
-* Based on: https://github.com/JoeyDeVries/LearnOpenGL/blob/master/src/7.in_practice/3.2d_game/0.full_source/shader.cpp
-*/
-
 class Shader 
 {
 private:

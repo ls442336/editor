@@ -1,2 +1,6 @@
-# Editor de texto
-Um editor de texto simples escrito em C++ utilizando OPENGL.
+# Text Editor
+A simple text editor made with OpenGL.
+
+## Links
+
+Following the guides from: from https://learnopengl.com/

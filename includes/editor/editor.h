@@ -17,10 +17,15 @@ public:
     ResourceManager& resourceManager;
     std::unique_ptr<TextRenderer> textRenderer;
 
+    std::vector<char> content;
+    std::vector<char>::iterator cursor;
+
     Editor();
 
     void init();
     void run();
+
+    void loadContentFromString(const std::string& text);
 };
 
 #endif

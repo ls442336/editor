@@ -139,6 +139,8 @@ Font* ResourceManager::loadFont(
             // Flags for correct representation of the data buffer
             tex.imageFormat = GL_RED;
             tex.internalFormat = GL_RED;
+            tex.filterMin = GL_LINEAR;
+            tex.filterMag = GL_LINEAR;
             tex.wrapS = GL_CLAMP_TO_EDGE;
             tex.wrapT = GL_CLAMP_TO_EDGE;
             
