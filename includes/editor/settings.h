@@ -7,6 +7,8 @@ public:
     int width;
     int height;
 
+    int fontSize;
+
     void updateWindowSize(int width, int height);
 };
 

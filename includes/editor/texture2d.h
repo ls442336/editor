@@ -1,10 +1,6 @@
 #ifndef __TEXTURE2D__H__
 #define __TEXTURE2D__H__
 
-/*
-* Based on: https://github.com/JoeyDeVries/LearnOpenGL/blob/master/src/7.in_practice/3.2d_game/0.full_source/texture.cpp
-*/
-
 class Texture2D
 {
 public:
