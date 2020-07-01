@@ -3,6 +3,7 @@
 
 #include "config.h"
 #include "fileutil.h"
+#include "openglprimitiverenderer.h"
 
 Editor::Editor()
     : resourceManager(ResourceManager::getInstance())
@@ -18,12 +19,14 @@ void Editor::init()
 
     // Load shaders
     Shader *textShader = resourceManager.loadShader("text", "data/shaders/text.vs", "data/shaders/text.fs");
+    Shader *primitiveShader = resourceManager.loadShader("primitiveShader", "data/shaders/primitive.vs", "data/shaders/primitive.fs");
 
     // Load fonts
-    resourceManager.loadFont("ubuntu", "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", 100);
+    Font* font = resourceManager.loadFont("ubuntu", "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", 100);
 
     // Initialize renderers
     textRenderer = std::make_unique<TextRenderer>(textShader, (float)settings.width, (float)settings.height);
+    primitiveRenderer = std::make_unique<OpenglPrimitiveRenderer>(primitiveShader, settings.width, settings.height);
 
     try{
         loadContentFromString(FileUtil::read("data/text/alice.txt"));
@@ -49,6 +52,7 @@ void Editor::run()
     if (selectedFont)
     {
         float fontSize = settings.fontSize;
+        float scale = (fontSize / selectedFont->size);
         glm::vec2 gridPos(0, fontSize);
 
         for (int i = 0; i < content.size(); i++)
@@ -60,7 +64,6 @@ void Editor::run()
                 continue;
             }
 
-            float scale = (fontSize / selectedFont->size);
             float advance = selectedFont->getChar(content[i])->advance / 64.0;
             float spacing = advance * scale;
 
@@ -80,5 +83,11 @@ void Editor::run()
 
             gridPos.x += spacing;
         }
+
+        glm::vec2 cursorSize;
+        cursorSize.x = (selectedFont->getChar(' ')->advance / 64) * scale;
+        cursorSize.y = fontSize;
+        
+        primitiveRenderer->drawRect(gridPos.x, gridPos.y - cursorSize.y, cursorSize.x, cursorSize.y, glm::vec3(1, 1, 1));
     }
 }
